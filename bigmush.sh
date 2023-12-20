@@ -1,7 +1,7 @@
 #!/usr/bin/bash
 #
 NATNET=172.16.0.0/16
-NUMOFNS=50
+NUMOFNS=250
 alias IPN='sudo ip net'
 alias IPL='sudo ip link'
 alias IPA='sudo ip addr add'
@@ -68,5 +68,5 @@ function cleanit() {
 }
 
 function showit() {
-	killall -USR1 mycelium
+	sudo killall -USR1 mycelium
 }
