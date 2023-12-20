@@ -18,7 +18,7 @@ will kill with little mercy mycelium daemons and delete the namespaces
 source ./bigmush.sh
 cleanit
 ```
-will do dropit and clean `*.{bin,out}` files
+will do a `dropit` and clean `*.{bin,out}` files
 ```bash
 showit
 ```
