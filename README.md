@@ -14,6 +14,18 @@ dropit
 ```
 will kill with little mercy mycelium daemons and delete the namespaces
 
+```bash
+source ./bigmush.sh
+cleanit
+```
+will do dropit and clean `*.{bin,out}` files
+```bash
+showit
+```
+will send a USR1 signal to all mycelium daemons that will
+  - send routing tables and peers to stdout
+  - where stdout will be captured in `xx.out` for each NS
+
 ### logging
 every namespace has an `xx.out` file that is stout and stderr
 the `xx.bin` file is the namespace daemon's privkey.
@@ -22,4 +34,3 @@ the `xx.bin` file is the namespace daemon's privkey.
 
 1) verify if you can reach all mycelium namespaces
 2) also when running another machine in your net, verify if it's automatically detected
-3) 

@@ -49,7 +49,7 @@ function dropns() {
 }
 
 function doit() {
-	nohup sudo mycelium --api-addr 127.0.0.1:8989 &
+	nohup sudo mycelium --key-file host.bin --api-addr 127.0.0.1:8989 >host.out &
 	for i in $(seq 1 $NUMOFNS); do
 		createns ${i} 172.16.${i}.2/24 172.16.${i}.1/24
 	done
@@ -59,4 +59,14 @@ function dropit() {
 	for i in $(seq 1 $NUMOFNS); do
 		dropns ${i}
 	done
+}
+
+function cleanit() {
+	dropit
+	rm ./*.bin
+	rm ./*.out
+}
+
+function showit() {
+	killall -USR1 mycelium
 }
