@@ -63,8 +63,8 @@ function dropit() {
 
 function cleanit() {
 	dropit
-	rm ./*.bin
-	rm ./*.out
+	sudo rm ./*.bin
+	sudo rm ./*.out
 }
 
 function showit() {
