@@ -2,10 +2,20 @@
 This lill skrip will just start $NUMOFNS network namespaces in your LINUX box where you can SUDO (because I __know__ for a fact that you weren't root, of course), start a mycelium daemon in the main namespace and one in each NS.
 
 ### Usage :
+
+Start with 
+```bash
+source ./bigmush.sh
+getmycelium
+```
+will get the latest __release__ binary from github
+
+Then
 ```bash
 source ./bigmush.sh
 doit
 ```
+
 will create and start a 50 node mycelium with one central
 
 ```bash
@@ -14,14 +24,17 @@ dropit
 ```
 will kill with little mercy mycelium daemons and delete the namespaces
 
+
 ```bash
 source ./bigmush.sh
 cleanit
 ```
 will do a `dropit` and clean `*.{bin,out}` files
+
 ```bash
 showit
 ```
+
 will send a USR1 signal to all mycelium daemons that will
   - send routing tables and peers to stdout
   - where stdout will be captured in `xx.out` for each NS

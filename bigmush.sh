@@ -39,7 +39,7 @@ function createns() {
 	IPA ${out_ip} dev out_${iname}
 	IPNR ${name} ${out_ip}
 	# start mycelium, relying on local discovery
-	nohup sudo ip netns exec ${name} mycelium --key-file ${name}.bin --api-addr ${in_ip/\/24/}:8989 --peers ${out_ip/\/24/}:9651 >${iname}.out &
+	nohup sudo ip netns exec ${name} ./mycelium --key-file ${name}.bin --api-addr ${in_ip/\/24/}:8989 --peers ${out_ip/\/24/}:9651 >${iname}.out &
 }
 function dropns() {
 	local iname=$1
@@ -49,7 +49,7 @@ function dropns() {
 }
 
 function doit() {
-	nohup sudo mycelium --key-file host.bin --api-addr 127.0.0.1:8989 >host.out &
+	nohup sudo ./mycelium --key-file host.bin --api-addr 127.0.0.1:8989 >host.out &
 	for i in $(seq 1 $NUMOFNS); do
 		createns ${i} 172.16.${i}.2/24 172.16.${i}.1/24
 	done
@@ -69,4 +69,10 @@ function cleanit() {
 
 function showit() {
 	sudo killall -USR1 mycelium
+}
+
+function getmycelium(){
+	wget https://github.com/threefoldtech/mycelium/releases/latest/download/mycelium-x86_64-unknown-linux-musl.tar.gz \
+		-O- | gunzip -c | tar xvf - -C ${PWD}
+
 }
