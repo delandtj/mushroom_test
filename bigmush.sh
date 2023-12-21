@@ -6,7 +6,8 @@ alias IPN='sudo ip net'
 alias IPL='sudo ip link'
 alias IPA='sudo ip addr add'
 
-name=""
+peers='146.185.93.83:9651 83.231.240.31:9651 185.206.122.77:9651 [2a04:f340:c0:71:28cc:b2ff:fe63:dd1c]:9651 [2001:728:1000:402:78d3:cdff:fe63:e07e]:9651'
+
 function IPNA() {
 	local name=$1
 	shift
@@ -39,7 +40,7 @@ function createns() {
 	IPA ${out_ip} dev out_${iname}
 	IPNR ${name} ${out_ip}
 	# start mycelium, relying on local discovery
-	nohup sudo ip netns exec ${name} ./mycelium --key-file ${name}.bin --api-addr ${in_ip/\/24/}:8989 --peers ${out_ip/\/24/}:9651 >${iname}.out &
+	nohup sudo ip netns exec ${name} ./mycelium --key-file ${name}.bin --api-addr ${in_ip/\/24/}:8989 --peers ${out_ip/\/24/}:9651 > ${iname}.out &
 }
 function dropns() {
 	local iname=$1
@@ -49,7 +50,7 @@ function dropns() {
 }
 
 function doit() {
-	nohup sudo ./mycelium --key-file host.bin --api-addr 127.0.0.1:8989 >host.out &
+	nohup sudo ./mycelium --key-file host.bin --api-addr 127.0.0.1:8989 --peers ${peers}>host.out &
 	for i in $(seq 1 $NUMOFNS); do
 		createns ${i} 172.16.${i}.2/24 172.16.${i}.1/24
 	done
